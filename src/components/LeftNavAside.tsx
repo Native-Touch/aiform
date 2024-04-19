@@ -13,12 +13,12 @@ import { navRoutes } from "~/lib/constants";
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useState } from "react";
 // import { settings$ } from "~/lib/states/settings";
 
 export default function LeftNavAside() {
   const pathname = usePathname();
-
-  const expandNav = true;
+  const [expandNav, setExpandNav] = useState(true);
 
   return (
     <TooltipProvider>
@@ -45,7 +45,7 @@ export default function LeftNavAside() {
               variant="ghost"
               className="p-3"
               onClick={() => {
-                // settings$.leftNavOpen.set((prev) => !prev);
+                setExpandNav(!expandNav);
               }}
             >
               {expandNav ? (
