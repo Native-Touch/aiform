@@ -1,10 +1,17 @@
-import { MessageAgents } from "@prisma/client";
+import { type MessageAgents } from "@prisma/client";
 import { cloudflareAxios } from "./axios";
 
 type AIMessageInput = {
   role: MessageAgents;
   content: string;
 };
+
+type AIMessageResponse = {
+  result: {
+    response: string;
+  },
+  success: boolean;
+}
 
 export async function generateResponse(messages: AIMessageInput[]) {
   const res = await cloudflareAxios.post(
@@ -17,5 +24,5 @@ export async function generateResponse(messages: AIMessageInput[]) {
     },
   );
 
-  return res;
+  return res as unknown as AIMessageResponse;
 }

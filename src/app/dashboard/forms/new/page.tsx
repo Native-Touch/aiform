@@ -1,13 +1,7 @@
 "use client";
 
-import {
-  Copy,
-  NotepadText,
-  Plus,
-  Rows2,
-  Sparkles,
-  Trash2,
-} from "lucide-react";
+import { Copy, NotepadText, Plus, Rows2, Sparkles, Trash2 } from "lucide-react";
+import { useState } from "react";
 import { Button } from "~/components/ui/button";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Input } from "~/components/ui/input";
@@ -20,54 +14,65 @@ import {
   SelectValue,
 } from "~/components/ui/select";
 import { Separator } from "~/components/ui/separator";
+import { Skeleton } from "~/components/ui/skeleton";
 import { Textarea } from "~/components/ui/textarea";
 
 export default function NewFormPage() {
+  const [loading, setLoading] = useState(false);
   return (
     <div className="relative flex h-screen flex-col items-center gap-4 px-8 pt-4">
       <div className="flex w-[50vw] flex-col items-center gap-8">
-        <div className="flex w-full flex-col gap-2 rounded border p-4 shadow">
-          <Input placeholder="Form Title" className="w-full" />
-          <Textarea
-            placeholder="Form Description"
-            className="h-fit min-h-0 w-full"
-            rows={1}
-          />
-        </div>
-        <div className="grid w-full grid-cols-2 gap-4 rounded border p-4 shadow">
-          <Input placeholder="Question" className="w-full" />
-          <Select>
-            <SelectTrigger>
-              <SelectValue>Text</SelectValue>
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="text">Text</SelectItem>
-              <SelectItem value="number">Number</SelectItem>
-              <SelectItem value="date">Date</SelectItem>
-              <SelectItem value="time">Time</SelectItem>
-            </SelectContent>
-          </Select>
-          <Textarea
-            placeholder="Description"
-            className="col-span-2 w-full"
-            rows={1}
-          />
-          <div className="flex items-center">
-            <Button variant="ghost" size="icon" className="group">
-              <Copy className="size-4" />
-            </Button>
-            <Button variant="ghost" size="icon" className="group">
-              <Trash2 className="size-4 text-destructive" />
-            </Button>
-            <Separator orientation="vertical" className="mx-2" />
-            <div className="flex items-center">
-              <Checkbox className="ml-2" id="required" />
-              <Label className="ml-2" htmlFor="required">
-                Required
-              </Label>
+        {loading ? (
+          <>
+            <Skeleton className="h-32 w-full" />
+            <Skeleton className="h-32 w-full" />
+          </>
+        ) : (
+          <>
+            <div className="flex w-full flex-col gap-2 rounded border p-4 shadow">
+              <Input placeholder="Form Title" className="w-full" />
+              <Textarea
+                placeholder="Form Description"
+                className="h-fit min-h-0 w-full"
+                rows={1}
+              />
             </div>
-          </div>
-        </div>
+            <div className="grid w-full grid-cols-2 gap-4 rounded border p-4 shadow">
+              <Input placeholder="Question" className="w-full" />
+              <Select>
+                <SelectTrigger>
+                  <SelectValue>Text</SelectValue>
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="text">Text</SelectItem>
+                  <SelectItem value="number">Number</SelectItem>
+                  <SelectItem value="date">Date</SelectItem>
+                  <SelectItem value="time">Time</SelectItem>
+                </SelectContent>
+              </Select>
+              <Textarea
+                placeholder="Description"
+                className="col-span-2 w-full"
+                rows={1}
+              />
+              <div className="flex items-center">
+                <Button variant="ghost" size="icon" className="group">
+                  <Copy className="size-4" />
+                </Button>
+                <Button variant="ghost" size="icon" className="group">
+                  <Trash2 className="size-4 text-destructive" />
+                </Button>
+                <Separator orientation="vertical" className="mx-2" />
+                <div className="flex items-center">
+                  <Checkbox className="ml-2" id="required" />
+                  <Label className="ml-2" htmlFor="required">
+                    Required
+                  </Label>
+                </div>
+              </div>
+            </div>
+          </>
+        )}
         <div className="flex w-full items-center gap-4">
           <Button variant="default" className="w-full gap-2">
             <Plus className="size-4" />

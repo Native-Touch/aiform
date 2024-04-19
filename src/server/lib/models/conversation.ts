@@ -50,6 +50,8 @@ export class ConversationHelper {
         role: message.message.agent,
       })),
     );
+    const finalObject = JSON.parse(res.result.response.replace(/\\n|\\/g, ''));
+    return finalObject;
   }
 }
 
