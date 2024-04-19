@@ -65,7 +65,31 @@ export async function startConversation(
         create: [
           {
             agent: MessageAgents.SYSTEM,
-            content: `Hello! I see you're in the ${starterVariables.industry} industry. How can I help you today?`,
+            content: `"Hello you are an expert at realizing data needs for forms. Consider the following prompts and generate a form in the following format.
+             Provide a list of objects as response. These objects should follow the type: {
+              label: string;
+              type: FieldType;
+              required: boolean;
+              placeholder: string | null;
+            }
+             where FieldType is
+             {
+              TEXT
+              TEXTAREA
+              NUMBER
+              EMAIL
+              PASSWORD
+              MULTIPLECHOICE
+              CHECKBOX
+              DROPDOWN
+              DATE
+              SCALE
+            }
+
+            For fields "multiple choice", "checkbox", and "dropdown", you should also provide a "options" field which is an array of strings.
+            For field "scale", you should also provide a "min" and "max" field which are numbers.
+
+             ONLY REPLY WITH A VALID JSON PARSABLE OBJECT NOTHING ELSE, ABSOLUTELY NOTHING ELSE"`,
             id: randomUUID(),
           },
         ],

@@ -1,9 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -13,55 +7,113 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Account {
-  id                 String    @id @default(cuid())
-  userId             String
-  providerType       String
-  providerId         String
-  providerAccountId  String
-  refreshToken       String?
-  accessToken        String?
-  accessTokenExpires DateTime?
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  user               User      @relation(fields: [userId], references: [id])
+model User {
+  id            String          @id @default(cuid())
+  name          String?
+  email         String          @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  // Optional for WebAuthn support
+  Authenticator Authenticator[]
 
-  @@unique([providerId, providerAccountId])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Form      Form[]
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
 }
 
 model Session {
-  id           String   @id @default(cuid())
+  sessionToken String   @unique
   userId       String
   expires      DateTime
-  sessionToken String   @unique
-  accessToken  String   @unique
-  createdAt    DateTime @default(now())
-  updatedAt    DateTime @updatedAt
-  user         User     @relation(fields: [userId], references: [id])
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
-model User {
-  id            String    @id @default(cuid())
-  name          String?
-  email         String?   @unique
-  emailVerified DateTime?
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  accounts      Account[]
-  sessions      Session[]
-  forms         Form[]
-}
-
-model VerificationRequest {
-  id         String   @id @default(cuid())
+model VerificationToken {
   identifier String
-  token      String   @unique
+  token      String
   expires    DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
-  @@unique([identifier, token])
+  @@id([identifier, token])
+}
+
+// Optional for WebAuthn support
+model Authenticator {
+  id                   String  @id @default(cuid())
+  credentialID         String  @unique
+  userId               String
+  providerAccountId    String
+  credentialPublicKey  String
+  counter              Int
+  credentialDeviceType String
+  credentialBackedUp   Boolean
+  transports           String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Field {
+  id          String    @id @default(cuid())
+  label       String
+  type        FieldType
+  required    Boolean
+  placeholder String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  formId      String
+  Form        Form      @relation(fields: [formId], references: [id])
+}
+
+model Form {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  ownerId     String
+  fields      Field[]
+  owner       User     @relation(fields: [ownerId], references: [id])
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+}
+
+model Message {
+  id             String        @id @default(cuid())
+  content        String
+  createdAt      DateTime      @default(now())
+  conversationId String?
+  agent          MessageAgents
+  conversation   Conversation? @relation(fields: [conversationId], references: [id])
 }
 
 enum FieldType {
@@ -77,47 +129,8 @@ enum FieldType {
   SCALE
 }
 
-model Field {
-  id          String    @id @default(cuid())
-  label       String
-  type        FieldType
-  required    Boolean
-  placeholder String?
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  Form        Form      @relation(fields: [formId], references: [id])
-  formId      String
-}
-
-model Form {
-  id          String   @id @default(cuid())
-  title       String
-  description String?
-  fields      Field[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  owner       User     @relation(fields: [ownerId], references: [id])
-  ownerId     String
-}
-
 enum MessageAgents {
   SYSTEM
   USER
   ASSISTANT
-}
-
-model Conversation {
-  id        String    @id @default(cuid())
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
-  messages  Message[]
-}
-
-model Message {
-  id             String        @id @default(cuid())
-  content        String
-  createdAt      DateTime      @default(now())
-  conversation   Conversation? @relation(fields: [conversationId], references: [id])
-  conversationId String?
-  agent          MessageAgents
 }
