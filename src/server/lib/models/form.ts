@@ -1,10 +1,11 @@
 import { Field, Form, Prisma } from "@prisma/client";
 import { randomUUID } from "crypto";
 import { db } from "~/server/db";
+import { FieldHelper } from "./field";
 
 export class FormHelper {
   form: Form;
-  fields: Field[] = [];
+  fields: Record<string, FieldHelper> = {};
   constructor(id?: string, desc?: string, title?: string, ownerId?: string) {
     if (!id) {
       if (!ownerId) {
@@ -25,7 +26,8 @@ export class FormHelper {
   addField(field: Prisma.FieldCreateInput) {
     // Add a field to the form
     const date: Date = new Date();
-    this.fields.push({
+    const id = randomUUID();
+    this.fields[id] = new FieldHelper({
       id: randomUUID(),
       formId: this.form.id,
       placeholder: field.placeholder ? field.placeholder : null,
@@ -38,21 +40,10 @@ export class FormHelper {
   }
   removeField(fieldId: string) {
     // Remove a field from the form
-    this.fields = this.fields.filter((field) => field.id !== fieldId);
-  }
-  updateLabel(fieldId: string, label: string) {
-    // Update the label of a field
-    const field = this.fields.find((field) => field.id === fieldId);
-    if (field) {
-      field.label = label;
-    }
-  }
-  updateRequired(fieldId: string, required: boolean) {
-    // Update the required status of a field
-    const field = this.fields.find((field) => field.id === fieldId);
-    if (field) {
-      field.required = required;
-    }
+    delete this.fields[fieldId];
+    // this.fields = Object.fromEntries(
+    //   Object.entries(this.fields).filter(([id, field]) => id !== fieldId),
+    // );
   }
   async save() {
     // Save the form and its fields to the database

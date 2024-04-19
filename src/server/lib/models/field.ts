@@ -8,4 +8,13 @@ export class FieldHelper {
   get id() {
     return this.field.id;
   }
+  updateLabel(label: string) {
+    this.field.label = label;
+  }
+  updatePlaceholder(placeholder: string) {
+    this.field.placeholder = placeholder;
+  }
+  updateRequired(required: boolean) {
+    this.field.required = required;
+  }
 }
