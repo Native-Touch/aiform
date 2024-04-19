@@ -1,35 +1,22 @@
-import { Battery, Bell, Camera, LineChart, Settings } from "lucide-react";
+import { Battery, LineChart, Settings } from "lucide-react";
 
 export const routesNames: Record<string, string> = {
   "": "Dashboard",
-  battery: "Battery Monitor",
-  settings: "Settings",
-  data: "Data",
-  camera: "Camera Feed",
-  notifications: "Notifications",
+  forms: "Forms",
   analytics: "Analytics",
+  settings: "Settings",
 };
 
 export const navRoutes = [
   {
-    title: "DashBoard",
-    route: "/",
-    icon: Camera,
-  },
-  {
     title: "Forms",
-    route: "/form",
+    route: "/forms",
     icon: Battery,
   },
   {
     title: "Analytics",
     route: "/",
     icon: LineChart,
-  },
-  {
-    title: "Notifications",
-    route: "/",
-    icon: Bell,
   },
   {
     title: "Settings",
