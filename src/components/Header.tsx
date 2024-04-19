@@ -61,8 +61,9 @@ export default function Header() {
       </Sheet>
       <Breadcrumb className="hidden lg:flex">
         <BreadcrumbList>
-          {(pathname === "/" ? [""] : pathname.split("/")).map(
-            (path, index, list) => (
+          {(pathname === "/" ? [] : pathname.split("/"))
+            .filter((r) => r)
+            .map((path, index, list) => (
               <div className="flex items-center gap-2" key={index}>
                 <BreadcrumbItem>
                   {index === list.length - 1 ? (
@@ -84,8 +85,7 @@ export default function Header() {
                 </BreadcrumbItem>
                 {index < list.length - 1 && <BreadcrumbSeparator />}
               </div>
-            ),
-          )}
+            ))}
         </BreadcrumbList>
       </Breadcrumb>
       <DropdownMenu>
