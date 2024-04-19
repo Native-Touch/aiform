@@ -1,32 +1,20 @@
 "use client";
 
 import { Button } from "~/components/ui/button";
-import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrigger, SelectValue } from "~/components/ui/select";
-
-// import { useState } from "react";
-// import React from "react";
+import { ComboboxDemo } from "~/components/ui/combobox";
+import { 
+  Select,
+  SelectContent, 
+  SelectGroup, 
+  SelectItem, 
+  SelectLabel, 
+  SelectTrigger, 
+  SelectValue 
+  } from "~/components/ui/select";
 
 export default function OnboardingPage() {
-  // const [selectedValue, setSelectedValue] = useState('1');
-
-  // const handleInputChange = (event) => {
-  //   setSelectedValue(event.target.value);
-  // }
-
   return(
     <div className="text-center space-y-6 ">
-      {/* <div>
-        {selectedValue === '1' ? (
-          <select value={selectedValue} onChange={handleInputChange}>
-            
-          </select>
-        ) : (
-          <select value={selectedValue} onChange={handleInputChange}>
-
-          </select>
-        )}
-      </div> */}
-
       <div className="text-6xl font-semibold text-black drop-shadow-md">
          Onboarding
       </div>
@@ -50,9 +38,6 @@ export default function OnboardingPage() {
               </SelectGroup>
             </SelectContent>
           </Select>
-
-          {/* TODO: add proper combobox */}
-
           <Button>Next</Button>
           <Button>Skip</Button>
         </div>
@@ -60,3 +45,4 @@ export default function OnboardingPage() {
     </div>
   );
 }
+{/* TODO: add proper combobox */}
