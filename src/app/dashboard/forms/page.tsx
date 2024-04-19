@@ -9,6 +9,7 @@ import {
 } from "~/components/ui/popover";
 import { Button } from "~/components/ui/button";
 import Link from "next/link";
+import { getFormsForUser } from "~/app/utils";
 
 const Page = () => {
   const [rows, setRows] = useState(false);
@@ -56,6 +57,8 @@ const Page = () => {
     },
   ];
 
+  // const data = await getFormsForUser();
+
   return (
     <div className="px-10">
       <div className="">
@@ -76,7 +79,10 @@ const Page = () => {
         </div>
         {view === "grid" ? (
           <div className="grid grid-cols-5 gap-6">
-            <Link href="forms/new" className="flex h-auto w-auto justify-center rounded border py-8">
+            <Link
+              href="forms/new"
+              className="flex h-auto w-auto justify-center rounded border py-8"
+            >
               <Plus className="size-16" />
             </Link>
             {data.map((item, index) => (

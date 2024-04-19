@@ -19,6 +19,7 @@ import { Textarea } from "~/components/ui/textarea";
 
 export default function NewFormPage() {
   const [loading, setLoading] = useState(false);
+
   return (
     <div className="relative flex h-screen flex-col items-center gap-4 px-8 pt-4">
       <div className="flex w-[50vw] flex-col items-center gap-8">

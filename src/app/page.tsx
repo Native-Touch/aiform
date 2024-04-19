@@ -1,7 +1,7 @@
 "use client";
 
 import { Github } from "lucide-react";
-import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 import { Button } from "~/components/ui/button";
 
 export default function Example() {
@@ -21,9 +21,10 @@ export default function Example() {
           </div>
 
           <div className="mt-10 flex justify-center sm:mx-auto sm:w-full sm:max-w-sm">
-            <Button variant="outline"
+            <Button
+              variant="outline"
               className="flex w-8/12 gap-2"
-              onClick={() => signIn("github").then((res) => console.log(res))}
+              onClick={() => redirect("/dashboard")}
             >
               <Github></Github> Sign in with GitHub
             </Button>
