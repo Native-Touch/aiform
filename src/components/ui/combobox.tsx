@@ -18,26 +18,42 @@ import {
   PopoverTrigger,
 } from "./popover"
 
-const frameworks = [
+const Industries = [
   {
-    value: "next.js",
+    value: "Educatio",
     label: "Next.js",
   },
   {
-    value: "sveltekit",
+    value: "Healthcare",
     label: "SvelteKit",
   },
   {
-    value: "nuxt.js",
+    value: "Legal",
     label: "Nuxt.js",
   },
   {
-    value: "remix",
+    value: "Real Estate",
     label: "Remix",
   },
   {
-    value: "astro",
+    value: "Finance & Banking",
     label: "Astro",
+  },
+  {
+    value: "Human Resources",
+    label: "Astro",
+  },
+  {
+    value: "Retail",
+    label: "Astro",
+  },
+  {
+    value: "Manufacturing",
+    label: "Astro",
+  },
+  {
+    value: "Other",
+    label: "Other",
   },
 ]
 
@@ -55,8 +71,8 @@ export function ComboboxDemo() {
           className="w-[200px] justify-between"
         >
           {value
-            ? frameworks.find((framework) => framework.value === value)?.label
-            : "Select framework..."}
+            ? Industries.find((framework) => framework.value === value)?.label
+            : "Select Industry..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -65,7 +81,7 @@ export function ComboboxDemo() {
           <CommandInput placeholder="Search framework..." />
           <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
-            {frameworks.map((framework) => (
+            {Industries.map((framework) => (
               <CommandItem
                 key={framework.value}
                 value={framework.value}
