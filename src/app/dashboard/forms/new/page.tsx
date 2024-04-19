@@ -38,6 +38,14 @@ export default function NewFormPage() {
   return (
     <div className="relative flex h-screen flex-col items-center gap-4 px-8 pt-4">
       <div className="flex w-[50vw] flex-col items-center gap-8 pb-40">
+        <div className="flex w-full flex-col gap-2 rounded border p-4 shadow">
+          <Input placeholder="Form Title" className="w-full" />
+          <Textarea
+            placeholder="Form Description"
+            className="h-fit min-h-0 w-full"
+            rows={1}
+          />
+        </div>
         {loading && (
           <>
             <Skeleton className="h-32 w-full" />
@@ -46,14 +54,6 @@ export default function NewFormPage() {
         )}
         {questions && (
           <>
-            <div className="flex w-full flex-col gap-2 rounded border p-4 shadow">
-              <Input placeholder="Form Title" className="w-full" />
-              <Textarea
-                placeholder="Form Description"
-                className="h-fit min-h-0 w-full"
-                rows={1}
-              />
-            </div>
             {questions.map((question, index) => (
               <div
                 key={index}
@@ -82,10 +82,7 @@ export default function NewFormPage() {
                   <RadioGroup className="col-span-2">
                     {question.options?.map((op) => (
                       <div className="flex items-center space-x-2" key={op}>
-                        <RadioGroupItem
-                          id={`radio ${op}`}
-                          value={op}
-                        />
+                        <RadioGroupItem id={`radio ${op}`} value={op} />
                         <Label htmlFor={`radio ${op}`}>{op}</Label>
                       </div>
                     ))}
@@ -105,7 +102,11 @@ export default function NewFormPage() {
                   </Button>
                   <Separator orientation="vertical" className="mx-2" />
                   <div className="flex items-center">
-                    <Checkbox className="ml-2" id="required" />
+                    <Checkbox
+                      className="ml-2"
+                      id="required"
+                      value={question.required}
+                    />
                     <Label className="ml-2" htmlFor="required">
                       Required
                     </Label>
@@ -115,7 +116,7 @@ export default function NewFormPage() {
             ))}
           </>
         )}
-        <div className="flex w-full items-center gap-4">
+        {/* <div className="flex w-full items-center gap-4">
           <Button variant="default" className="w-full gap-2">
             <Plus className="size-4" />
             Add Question
@@ -128,7 +129,7 @@ export default function NewFormPage() {
             <Rows2 className="size-4" />
             Add Section
           </Button>
-        </div>
+        </div> */}
       </div>
       <div className="fixed bottom-0 flex w-full items-center justify-center">
         <div className="flex w-[50vw] rounded border bg-background p-2 shadow">
@@ -145,10 +146,11 @@ export default function NewFormPage() {
             onClick={async () => {
               if (!prompt) return;
               setLoading(true);
+              setQuestions([]);
               const questions = await generateResponse([
                 {
                   role: "SYSTEM",
-                  content: `"Hello you are an expert at realizing data needs for forms. Consider the following prompts and generate a form in the following format.
+                  content: `"Hello you are an expert at realizing data needs for google forms app. Consider the following prompts and generate a form in the following format.
                Provide a list of objects as response. These objects should follow the type: {
                 label: string;
                 type: FieldType;
@@ -172,14 +174,13 @@ export default function NewFormPage() {
               For fields "multiple choice", "checkbox", and "dropdown", you should also provide a "options" field which is an array of strings.
               For field "scale", you should also provide a "min" and "max" field which are numbers.
   
-               ONLY REPLY WITH A VALID JSON PARSABLE OBJECT NOTHING ELSE, ABSOLUTELY NOTHING ELSE"`,
+               ONLY REPLY WITH A VALID JSON JAVASCRIPT PARSABLE OBJECT NOTHING ELSE, ABSOLUTELY NOTHING ELSE"`,
                 },
                 {
                   role: "USER",
                   content: prompt,
                 },
               ]);
-              console.log(questions);
               setQuestions(
                 JSON.parse(questions.replace(/\\n|\\/g, "")) as question[],
               );
