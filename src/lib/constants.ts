@@ -12,23 +12,23 @@ export const routesNames: Record<string, string> = {
 
 export const navRoutes = [
   {
-    title: "Camera Feed",
-    route: "/data/camera",
+    title: "DashBoard",
+    route: "/",
     icon: Camera,
   },
   {
-    title: "Battery Monitor",
-    route: "/battery",
+    title: "Forms",
+    route: "/form",
     icon: Battery,
   },
   {
     title: "Analytics",
-    route: "/analytics",
+    route: "/",
     icon: LineChart,
   },
   {
     title: "Notifications",
-    route: "/notifications",
+    route: "/",
     icon: Bell,
   },
   {
