@@ -1,26 +1,27 @@
 import { Battery, LineChart, Settings } from "lucide-react";
 
 export const routesNames: Record<string, string> = {
-  "": "Dashboard",
+  dashboard: "Dashboard",
   forms: "Forms",
   analytics: "Analytics",
   settings: "Settings",
+  new: "New",
 };
 
 export const navRoutes = [
   {
     title: "Forms",
-    route: "/forms",
+    route: "/dashboard/forms",
     icon: Battery,
   },
   {
     title: "Analytics",
-    route: "/",
+    route: "/dashboard",
     icon: LineChart,
   },
   {
     title: "Settings",
-    route: "/settings",
+    route: "/dashboard/settings",
     icon: Settings,
     end: true,
   },
