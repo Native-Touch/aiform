@@ -1,8 +1,6 @@
-"use client"
+"use client";
 
 import * as React from "react"
-import { Check, ChevronsUpDown } from "lucide-react"
-
 import { cn } from "../../lib/utils"
 import { Button } from "./button"
 import {
@@ -17,8 +15,9 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "./popover"
+import { CheckIcon, ChevronsUpDown } from "lucide-react"
 
-const Industries = [
+const industries = [
   {
     value: "Education",
     label: "Education",
@@ -71,8 +70,8 @@ export function ComboboxDemo() {
           className="w-[200px] justify-between"
         >
           {value
-            ? Industries.find((framework) => framework.value === value)?.label
-            : "Select Industry..."}
+            ? industries.find((framework) => framework.value === value)?.label
+            : "Select framework..."}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -81,7 +80,7 @@ export function ComboboxDemo() {
           <CommandInput placeholder="Search framework..." />
           <CommandEmpty>No framework found.</CommandEmpty>
           <CommandGroup>
-            {Industries.map((framework) => (
+            {industries.map((framework) => (
               <CommandItem
                 key={framework.value}
                 value={framework.value}
@@ -90,7 +89,7 @@ export function ComboboxDemo() {
                   setOpen(false)
                 }}
               >
-                <Check
+                <CheckIcon
                   className={cn(
                     "mr-2 h-4 w-4",
                     value === framework.value ? "opacity-100" : "opacity-0"
