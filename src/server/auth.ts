@@ -45,6 +45,7 @@ export const authOptions: NextAuthOptions = {
       },
     }),
   },
+  secret: env.NEXTAUTH_SECRET,
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment, @typescript-eslint/no-unsafe-call
   adapter: PrismaAdapter(db),
   providers: [
