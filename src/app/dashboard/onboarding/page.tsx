@@ -7,16 +7,28 @@ import { ComboboxDemo } from "~/components/ui/combobox";
 // import React from "react";
 
 export default function OnboardingPage() {
-  // const [inputValue, setInputValue] = useState('1');
+  // const [selectedValue, setSelectedValue] = useState('1');
 
   // const handleInputChange = (event) => {
-  //   setInputValue(event.target.value);
+  //   setSelectedValue(event.target.value);
   // }
 
   return(
     <div className="text-center space-y-6 ">
+      {/* <div>
+        {selectedValue === '1' ? (
+          <select value={selectedValue} onChange={handleInputChange}>
+            
+          </select>
+        ) : (
+          <select value={selectedValue} onChange={handleInputChange}>
+
+          </select>
+        )}
+      </div> */}
+
       <div className="text-6xl font-semibold text-black drop-shadow-md">
-        Onboarding
+         Onboarding
       </div>
       <p className="text-lg">
         Which industy do you work in?
