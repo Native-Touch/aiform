@@ -50,6 +50,7 @@ model User {
   updatedAt     DateTime  @updatedAt
   accounts      Account[]
   sessions      Session[]
+  forms         Form[]
 }
 
 model VerificationRequest {
@@ -74,4 +75,27 @@ enum FieldType {
   DROPDOWN
   DATE
   SCALE
+}
+
+model Field {
+  id          String    @id @default(cuid())
+  label       String
+  type        FieldType
+  required    Boolean
+  placeholder String?
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  Form        Form      @relation(fields: [formId], references: [id])
+  formId      String
+}
+
+model Form {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  fields      Field[]
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  owner       User     @relation(fields: [ownerId], references: [id])
+  ownerId     String
 }
