@@ -30,5 +30,7 @@ class Form {
     this.metadata = metadata;
   }
 
-  addField(field) {}
+  addField(field: Field) {
+    this.fields.push(field);
+  }
 }
