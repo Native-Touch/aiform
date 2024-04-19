@@ -7,7 +7,7 @@ import {
   TooltipTrigger,
 } from "./ui/tooltip";
 import { Button } from "./ui/button";
-import { PanelLeftOpen, PanelLeftClose, Bird } from "lucide-react";
+import { PanelLeftOpen, PanelLeftClose, Bird, LayoutList, ListTodo } from "lucide-react";
 import { cn } from "~/lib/utils";
 import { navRoutes } from "~/lib/constants";
 
@@ -38,8 +38,8 @@ export default function LeftNavAside() {
             )}
           >
             <Link href="/" className="flex items-center gap-2 font-semibold">
-              <Bird className="h-6 w-6" />
-              <span className={cn(!expandNav && "sr-only")}>Name</span>
+              <ListTodo className="h-6 w-6" />
+              <span className={cn(!expandNav && "sr-only")}>FormMatic</span>
             </Link>
             <Button
               variant="ghost"
