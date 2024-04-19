@@ -1,15 +1,19 @@
+import { MessageAgents } from "@prisma/client";
 import { cloudflareAxios } from "./axios";
 
-type AIConversation = {
-  role: "system" | "user";
+type AIMessageInput = {
+  role: MessageAgents;
   content: string;
 };
 
-export async function generateResponse(messages: AIConversation[]) {
+export async function generateResponse(messages: AIMessageInput[]) {
   const res = await cloudflareAxios.post(
     `@hf/mistralai/mistral-7b-instruct-v0.2`,
     {
-      messages,
+      messages: messages.map((message) => ({
+        role: message.role.toLowerCase(),
+        content: message.content,
+      })),
     },
   );
 

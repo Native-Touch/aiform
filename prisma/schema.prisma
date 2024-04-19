@@ -99,3 +99,25 @@ model Form {
   owner       User     @relation(fields: [ownerId], references: [id])
   ownerId     String
 }
+
+enum MessageAgents {
+  SYSTEM
+  USER
+  ASSISTANT
+}
+
+model Conversation {
+  id        String    @id @default(cuid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  messages  Message[]
+}
+
+model Message {
+  id             String        @id @default(cuid())
+  content        String
+  createdAt      DateTime      @default(now())
+  conversation   Conversation? @relation(fields: [conversationId], references: [id])
+  conversationId String?
+  agent          MessageAgents
+}
