@@ -1,6 +1,7 @@
-import { Conversation, Message, Prisma } from "@prisma/client";
+import { Conversation, Message, MessageAgents, Prisma } from "@prisma/client";
 import { db } from "~/server/db";
 import { generateResponse } from "../ai";
+import { randomUUID } from "crypto";
 
 export class MessageHelper {
   message: Message;
@@ -8,6 +9,10 @@ export class MessageHelper {
     this.message = message;
   }
 }
+
+export type StarterVarables = {
+  industry: string;
+};
 
 export class ConversationHelper {
   conversation: Conversation;
@@ -50,10 +55,22 @@ export class ConversationHelper {
 
 export async function startConversation(
   conversation: Prisma.ConversationCreateInput,
+  starterVariables: StarterVarables,
 ) {
   // Start a conversation
   const createdConversation = await db.conversation.create({
-    data: conversation,
+    data: {
+      ...conversation,
+      messages: {
+        create: [
+          {
+            agent: MessageAgents.SYSTEM,
+            content: `Hello! I see you're in the ${starterVariables.industry} industry. How can I help you today?`,
+            id: randomUUID(),
+          },
+        ],
+      },
+    },
   });
   if (!conversation) {
     throw new Error("Failed to start conversation.");
