@@ -9,4 +9,5 @@ export default {
     connectionString: env.DATABASE_URL,
   },
   tablesFilter: ["aiform_*"],
+  out: "./drizzle/",
 } satisfies Config;
