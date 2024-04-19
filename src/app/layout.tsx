@@ -1,10 +1,20 @@
 import "~/styles/globals.css";
 
-import { Inter } from "next/font/google";
+import { Inter, Poppins } from "next/font/google";
+import dynamic from "next/dynamic";
+import { ThemeProvider } from "~/components/theme-provider";
+import { Toaster } from "~/components/ui/sonner";
+import Header from "~/components/Header";
 
-const inter = Inter({
+const LeftNavAsideWithNoSSR = dynamic(
+  () => import("~/components/LeftNavAside"),
+  { ssr: false },
+);
+
+const poppins = Poppins({
   subsets: ["latin"],
   variable: "--font-sans",
+  weight: ["100", "200", "300", "400", "500", "600", "700", "800", "900"],
 });
 
 export const metadata = {
@@ -19,8 +29,19 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <body className={`font-sans ${inter.variable}`}>{children}</body>
-    </html>
+      <html lang="en">
+        <body className={`font-sans ${poppins.variable}`}>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            <div className="flex h-screen overflow-hidden">
+              <Toaster position="top-right" />
+              <LeftNavAsideWithNoSSR />
+              <div className="flex flex-1 flex-col sm:gap-4 md:py-4 overflow-auto">
+                <Header />
+                {children}
+              </div>
+            </div>
+          </ThemeProvider>
+        </body>
+      </html>
   );
 }
