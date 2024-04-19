@@ -1,4 +1,4 @@
-import { useMediaQuery } from "~/lib/utils";
+import { useMediaQuery } from "~/lib/utilss";
 import { Dialog, DialogContent, DialogTrigger } from "./dialog";
 import { Drawer, DrawerContent, DrawerTrigger } from "./drawer";
 import { useState } from "react";

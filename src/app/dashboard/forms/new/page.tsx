@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import { Copy, NotepadText, Plus, Rows2, Sparkles, Trash2 } from "lucide-react";
 import { useState } from "react";
@@ -16,9 +16,18 @@ import {
 import { Separator } from "~/components/ui/separator";
 import { Skeleton } from "~/components/ui/skeleton";
 import { Textarea } from "~/components/ui/textarea";
+import { startConversation } from "~/server/lib/models/conversation";
 
-export default function NewFormPage() {
-  const [loading, setLoading] = useState(false);
+export default async function NewFormPage() {
+  // const [loading, setLoading] = useState(false);
+  let loading = false;
+
+  const conversation = await startConversation({}, { industry: "teacher" });
+  const heh = await conversation.sendPrompt({
+    content: "Write a basic feedback form",
+    agent: "USER",
+  });
+  console.log(heh);
 
   return (
     <div className="relative flex h-screen flex-col items-center gap-4 px-8 pt-4">

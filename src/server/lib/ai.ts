@@ -24,5 +24,5 @@ export async function generateResponse(messages: AIMessageInput[]) {
     },
   );
 
-  return res as unknown as AIMessageResponse;
+  return res.data as unknown as AIMessageResponse;
 }

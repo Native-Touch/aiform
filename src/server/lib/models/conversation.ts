@@ -50,7 +50,15 @@ export class ConversationHelper {
         role: message.message.agent,
       })),
     );
-    const finalObject = JSON.parse(res.result.response.replace(/\\n|\\/g, ''));
+    const finalObject: {
+      label: string;
+      type: string;
+      required: boolean;
+      placeholder: string | null;
+      options?: string[];
+      min?: number;
+      max?: number;
+    } = res.result.response;
     return finalObject;
   }
 }
