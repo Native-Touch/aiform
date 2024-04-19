@@ -3,12 +3,16 @@
 import { Button } from "~/components/ui/button";
 import { ComboboxDemo } from "~/components/ui/combobox";
 
-const industries = [
-  "Student",
-  "Option2",
-];
+// import { useState } from "react";
+// import React from "react";
 
 export default function OnboardingPage() {
+  // const [inputValue, setInputValue] = useState('1');
+
+  // const handleInputChange = (event) => {
+  //   setInputValue(event.target.value);
+  // }
+
   return(
     <div className="text-center space-y-6 ">
       <div className="text-6xl font-semibold text-black drop-shadow-md">
