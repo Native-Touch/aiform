@@ -20,36 +20,36 @@ import {
 
 const Industries = [
   {
-    value: "Educatio",
-    label: "Next.js",
+    value: "Education",
+    label: "Education",
   },
   {
     value: "Healthcare",
-    label: "SvelteKit",
+    label: "Healthcare",
   },
   {
     value: "Legal",
-    label: "Nuxt.js",
+    label: "Legal",
   },
   {
     value: "Real Estate",
-    label: "Remix",
+    label: "Real Estate",
   },
   {
     value: "Finance & Banking",
-    label: "Astro",
+    label: "Finance & Banking",
   },
   {
     value: "Human Resources",
-    label: "Astro",
+    label: "Human Resources",
   },
   {
     value: "Retail",
-    label: "Astro",
+    label: "Retail",
   },
   {
     value: "Manufacturing",
-    label: "Astro",
+    label: "Manufacturing",
   },
   {
     value: "Other",
