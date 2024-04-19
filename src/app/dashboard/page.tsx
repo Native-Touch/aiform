@@ -17,7 +17,8 @@ export default function HomePage() {
   return (
     <div className={style.parent}>
       <div className={`${style.div1} border rounded`}>
-      <ResponsiveContainer width="100%" height="100%">
+      <p className={`text-xl font-semibold pb-2`}>Form Responses</p>
+      <ResponsiveContainer width="90%" height="90%">
         <LineChart
           width={500}
           height={300}
@@ -40,7 +41,8 @@ export default function HomePage() {
       </ResponsiveContainer>
       </div>
       <div className={`${style.div2} border rounded`}>
-      <ResponsiveContainer width="100%" height="100%">
+      <p className={`text-xl font-semibold pb-2`}>Form Views</p>
+      <ResponsiveContainer width="90%" height="90%">
         <LineChart
           width={500}
           height={300}
